@@ -1,7 +1,6 @@
 def freq_dist(given_series, m):
     nt=[]
     import sys
-    import csv
     import pandas as pd
     import numpy as np
     import math
