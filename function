@@ -19,6 +19,8 @@ def freq_dist(given_series, m):
                  'number_of_classes':nt[i].split(':')[1]}
             df.append(d)
         dataframe=pd.DataFrame(data=df)
+        dataframe.iloc[:,1]=dataframe.iloc[:,1].astype(int)
+        dataframe['freq_dist']=(dataframe.iloc[:,1]/dataframe.iloc[:,1].sum()).round(3)
         return dataframe
     else:
         if m > 10:
@@ -39,4 +41,6 @@ def freq_dist(given_series, m):
                  'number_of_classes':nt[i].split(':')[1]}
             df.append(d)
         dataframe=pd.DataFrame(data=df)
+        dataframe.iloc[:,1]=dataframe.iloc[:,1].astype(int)
+        dataframe['freq_dist']=(dataframe.iloc[:,1]/dataframe.iloc[:,1].sum()).round(3)
         return dataframe
