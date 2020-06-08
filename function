@@ -6,10 +6,25 @@ def freq_dist(given_series, m):
     import math
     if m is None:
         m=math.sqrt(len(given_series))+1
+        C=((max(given_series)-min(given_series))/m)+1  
+        hist, bins = np.histogram(given_series, bins=np.arange(min(given_series), max(given_series)+int(C),int(C)))
+        bin_counts = list(zip(bins, bins[1:], hist)) # [(bin_start, bin_end, count), ... ]
+
+        for bin_start, bin_end, count in bin_counts[:]:
+            nt.append('{} ≤ x < {}: {}'.format(bin_start, bin_end, count))
+
+        df=[]
+        for i in range(len(nt)):
+            d = {'classes': nt[i].split(':')[0],
+                 'number_of_classes':nt[i].split(':')[1]}
+            df.append(d)
+        dataframe=pd.DataFrame(data=df)
+        return dataframe
+    else:
         if m > 10:
             m=math.sqrt(math.sqrt(len(given_series)))+1
         else:
-            m=math.sqrt(len(given_series))+1
+            m=m
 
         C=((max(given_series)-min(given_series))/m)+1  
         hist, bins = np.histogram(given_series, bins=np.arange(min(given_series), max(given_series)+int(C),int(C)))
@@ -20,25 +35,8 @@ def freq_dist(given_series, m):
 
         df=[]
         for i in range(len(nt)):
-            d = {'Puan': nt[i].split(':')[0],
-                 'Sınıf Çokluğu':nt[i].split(':')[1]}
+            d = {'classes': nt[i].split(':')[0],
+                 'number_of_classes':nt[i].split(':')[1]}
             df.append(d)
         dataframe=pd.DataFrame(data=df)
         return dataframe
-
-    else:
-            C=((max(given_series)-min(given_series))/m)+1
-            hist, bins = np.histogram(given_series, bins=np.arange(min(given_series), max(given_series)+int(C),int(C)))
-            bin_counts = list(zip(bins, bins[1:], hist)) # [(bin_start, bin_end, count), ... ]
-
-            for bin_start, bin_end, count in bin_counts[:]:
-                nt.append('{} ≤ x < {}: {}'.format(bin_start, bin_end, count))
-
-            df=[]
-            for i in range(len(nt)):
-                d = {'Puan': nt[i].split(':')[0],
-                     'Sınıf Çokluğu':nt[i].split(':')[1]}
-                df.append(d)
-            dataframe=pd.DataFrame(data=df)
-            return dataframe
-        
